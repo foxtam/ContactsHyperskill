@@ -4,6 +4,7 @@ course-remote-info.yaml
 
 /Contacts/*
 !/Contacts/task/
+/Problems/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,intellij+all,gradle
