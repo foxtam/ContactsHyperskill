@@ -44,7 +44,12 @@ public class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber) throws WrongPhoneNumberFormatException {
-        this.phoneNumber = new PhoneNumber(phoneNumber);
+        try {
+            this.phoneNumber = new PhoneNumber(phoneNumber);
+        } catch (WrongPhoneNumberFormatException e) {
+            this.phoneNumber = null;
+            throw e;
+        }
     }
 
     public boolean hasNumber() {
