@@ -1,6 +1,7 @@
 package contacts;
 
 import contacts.contact.Contact;
+import contacts.exceptions.WrongPhoneNumberFormatException;
 
 import java.util.List;
 import java.util.Scanner;
