@@ -1,14 +1,17 @@
 package contacts.contact;
 
-public class Contact {
-    private final String name;
-    private final String surname;
-    private final String phoneNumber;
+import contacts.PhoneNumber;
+import contacts.exceptions.WrongPhoneNumberFormatException;
 
-    public Contact(String name, String surname, String phoneNumber) {
+public class Contact {
+
+    private String name;
+    private String surname;
+    private PhoneNumber phoneNumber = null;
+
+    public Contact(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -24,11 +27,27 @@ public class Contact {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSurname() {
         return surname;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phoneNumber.numberAsString();
+    }
+
+    public void setPhoneNumber(String phoneNumber) throws WrongPhoneNumberFormatException {
+        this.phoneNumber = new PhoneNumber(phoneNumber);
+    }
+
+    public boolean hasNumber() {
+        return phoneNumber != null;
     }
 }
