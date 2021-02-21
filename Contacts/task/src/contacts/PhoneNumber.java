@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class PhoneNumber {
     private static final Pattern phoneNumberPattern =
-            Pattern.compile("(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s-]\\d{3}[\\s-]\\d{4}");
+            Pattern.compile("\\+?(\\w+[- ](\\(\\w{2,})\\)|\\w+|(\\(\\w+)\\))([- ]\\w{2,})*");
 
     private final String number;
 
