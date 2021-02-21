@@ -1,5 +1,7 @@
 package contacts;
 
+import contacts.contact.Contact;
+
 import java.util.ArrayList;
 import java.util.List;
 

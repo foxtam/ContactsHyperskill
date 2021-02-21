@@ -1,4 +1,4 @@
-package contacts;
+package contacts.contact;
 
 public class Contact {
     private final String name;
