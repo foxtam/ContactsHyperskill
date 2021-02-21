@@ -21,4 +21,20 @@ public class PhoneBook {
                 "list=" + list +
                 '}';
     }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public int size() {
+        return list.size();
+    }
+
+    public List<Contact> asList() {
+        return list;
+    }
+
+    public void remove(Contact contact) {
+        list.remove(contact);
+    }
 }
