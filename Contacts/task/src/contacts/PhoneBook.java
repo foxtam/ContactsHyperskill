@@ -1,25 +1,15 @@
 package contacts;
 
-import contacts.contact.Contact;
+import contacts.contact.Record;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PhoneBook {
-    private final List<Contact> list = new ArrayList<>();
+    private final List<Record> list = new ArrayList<>();
 
-    public PhoneBook() {
-    }
-
-    public void add(Contact contact) {
+    public void add(Record contact) {
         list.add(contact);
-    }
-
-    @Override
-    public String toString() {
-        return "PhoneBook{" +
-                "list=" + list +
-                '}';
     }
 
     public boolean isEmpty() {
@@ -30,11 +20,24 @@ public class PhoneBook {
         return list.size();
     }
 
-    public List<Contact> asList() {
-        return list;
+    public void removeAt(int index) {
+        list.remove(index);
     }
 
-    public void remove(Contact contact) {
-        list.remove(contact);
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            builder.append(i + 1).append(". ").append(list.get(i)).append("\n");
+        }
+        return builder.toString();
+    }
+
+    public void updateRecord(int index, String field, String value) {
+        list.get(index).updateProperty(field, value);
+    }
+
+    public Record get(int index) {
+        return list.get(index);
     }
 }
