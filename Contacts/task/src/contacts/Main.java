@@ -40,7 +40,7 @@ public class Main {
     private void performAction(String action) {
         Runnable command = commands.get(action);
         if (command == null) {
-            System.out.println("Unknown action!");
+            System.out.println("Unknown action!\n");
         } else {
             command.run();
         }
@@ -53,18 +53,18 @@ public class Main {
     private void actionAdd() {
         Record record = readRecord();
         phoneBook.add(record);
-        System.out.println("The record added.");
+        System.out.println("The record added.\n");
     }
 
     private void actionRemove() {
         if (phoneBook.isEmpty()) {
-            System.out.println("No records to remove!");
+            System.out.println("No records to remove!\n");
             return;
         }
         printPhoneBook();
         int contactIndex = readRecordIndex();
         phoneBook.removeAt(contactIndex);
-        System.out.println("The record removed!");
+        System.out.println("The record removed!\n");
     }
 
     private void printPhoneBook() {
@@ -82,7 +82,7 @@ public class Main {
 
     private void actionEdit() {
         if (phoneBook.isEmpty()) {
-            System.out.println("No records to edit!");
+            System.out.println("No records to edit!\n");
             return;
         }
         printPhoneBook();
@@ -90,7 +90,7 @@ public class Main {
         String field = selectField();
         String newValue = enterField(field);
         phoneBook.updateRecord(contactIndex, field, newValue);
-        System.out.println("The record updated!");
+        System.out.println("The record updated!\n");
     }
 
     private String selectField() {
@@ -108,7 +108,7 @@ public class Main {
     }
 
     private void actionCount() {
-        System.out.println("The Phone Book has " + phoneBook.size() + " records.");
+        System.out.println("The Phone Book has " + phoneBook.size() + " records.\n");
     }
 
     private void actionInfo() {
