@@ -1,16 +1,29 @@
 package contacts;
 
-import contacts.contact.Contact;
-import contacts.exceptions.WrongPhoneNumberFormatException;
+import contacts.contact.Record;
+import contacts.contact.*;
+import contacts.contact.properties.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
     private final PhoneBook phoneBook = new PhoneBook();
+    private final String joinedCommands = String.join(", ", commands.keySet());
     private boolean continued = true;
+    private final Map<String, Runnable> commands =
+            Map.of(
+                    "add", this::actionAdd,
+                    "remove", this::actionRemove,
+                    "edit", this::actionEdit,
+                    "count", this::actionCount,
+                    "info", this::actionInfo,
+                    "exit", this::actionExit);
 
     public static void main(String[] args) {
         new Main().run();
@@ -18,51 +31,28 @@ public class Main {
 
     private void run() {
         while (continued) {
-            System.out.print("Enter action (add, remove, edit, count, list, exit): ");
-            final String action = scanner.nextLine();
+            System.out.print("Enter action (" + joinedCommands + "): ");
+            String action = scanner.nextLine();
             performAction(action);
         }
     }
 
     private void performAction(String action) {
-        switch (action) {
-            case "add":
-                actionAdd();
-                break;
-            case "remove":
-                actionRemove();
-                break;
-            case "edit":
-                actionEdit();
-                break;
-            case "count":
-                actionCount();
-                break;
-            case "list":
-                actionList();
-                break;
-            case "exit":
-                continued = false;
-                break;
-            default:
-                System.out.println("Unknown action!");
+        Runnable command = commands.get(action);
+        if (command == null) {
+            System.out.println("Unknown action!");
+        } else {
+            command.run();
         }
     }
 
+    private void actionExit() {
+        continued = false;
+    }
+
     private void actionAdd() {
-        System.out.print("Enter the name: ");
-        final String name = scanner.nextLine();
-
-        System.out.print("Enter the surname: ");
-        final String surname = scanner.nextLine();
-
-        System.out.print("Enter the number: ");
-        String number = scanner.nextLine();
-
-        final Contact contact = new Contact(name, surname);
-
-        updateContactNumber(contact, number);
-        phoneBook.add(contact);
+        Record record = readRecord();
+        phoneBook.add(record);
         System.out.println("The record added.");
     }
 
@@ -72,9 +62,22 @@ public class Main {
             return;
         }
         printPhoneBook();
-        Contact contact = selectRecord();
-        phoneBook.remove(contact);
+        int contactIndex = readRecordIndex();
+        phoneBook.removeAt(contactIndex);
         System.out.println("The record removed!");
+    }
+
+    private void printPhoneBook() {
+        System.out.println(phoneBook);
+    }
+
+    private int readRecordIndex() {
+        int index;
+        do {
+            System.out.print("Select a record: ");
+            index = Integer.parseInt(scanner.nextLine());
+        } while (index <= 0 || index > phoneBook.size());
+        return index - 1;
     }
 
     private void actionEdit() {
@@ -83,48 +86,11 @@ public class Main {
             return;
         }
         printPhoneBook();
-        Contact contact = selectRecord();
+        int contactIndex = readRecordIndex();
         String field = selectField();
-        updateRecord(contact, field);
+        String newValue = enterField(field);
+        phoneBook.updateRecord(contactIndex, field, newValue);
         System.out.println("The record updated!");
-    }
-
-    private void actionCount() {
-        System.out.println("The Phone Book has " + phoneBook.size() + " records.");
-    }
-
-    private void actionList() {
-        printPhoneBook();
-    }
-
-    private void updateContactNumber(Contact contact, String newValue) {
-        try {
-            contact.setPhoneNumber(newValue);
-        } catch (WrongPhoneNumberFormatException e) {
-            System.out.println("Wrong number format!");
-        }
-    }
-
-    private void printPhoneBook() {
-        List<Contact> contacts = phoneBook.asList();
-        for (int i = 0; i < contacts.size(); i++) {
-            final Contact contact = contacts.get(i);
-            System.out.printf(
-                    "%d. %s %s, %s%n",
-                    i + 1,
-                    contact.getName(),
-                    contact.getSurname(),
-                    contact.hasNumber() ? contact.getPhoneNumber() : "[no number]");
-        }
-    }
-
-    private Contact selectRecord() {
-        int index;
-        do {
-            System.out.print("Select a record: ");
-            index = Integer.parseInt(scanner.nextLine());
-        } while (index <= 0 || index > phoneBook.size());
-        return phoneBook.asList().get(index - 1);
     }
 
     private String selectField() {
@@ -136,26 +102,82 @@ public class Main {
         return field;
     }
 
-    private void updateRecord(Contact contact, String field) {
-        String newValue = enterField(field);
-        switch (field) {
-            case "name":
-                contact.setName(newValue);
-                break;
-            case "surname":
-                contact.setSurname(newValue);
-                break;
-            case "number":
-                updateContactNumber(contact, newValue);
-                break;
-            default:
-                throw new IllegalStateException();
-        }
-    }
-
     private String enterField(String field) {
         System.out.print("Enter " + field + ": ");
         return scanner.nextLine();
     }
-}
 
+    private void actionCount() {
+        System.out.println("The Phone Book has " + phoneBook.size() + " records.");
+    }
+
+    private void actionInfo() {
+        printPhoneBook();
+        System.out.println("Enter index to show info: ");
+        int index = readRecordIndex();
+        System.out.println(phoneBook.get(index).fullInfo());
+    }
+
+    private Record readRecord() {
+        while (true) {
+            System.out.print("Enter the type (person, organisation): ");
+            String type = scanner.nextLine();
+            switch (type) {
+                case "person":
+                    return readPersonRecord();
+                case "organisation":
+                    return readOrganisationRecord();
+                default:
+                    System.out.println("Bad input!");
+            }
+        }
+    }
+
+    private PersonRecord readPersonRecord() {
+        Name name = readRequire("name", Name::new);
+        Surname surname = readRequire("surname", Surname::new);
+        Optional<BirthDate> birthDateOptional = readOptional("birth date", BirthDate::new);
+        Optional<Gender> genderOptional = readOptional("gender (M, F)", Gender::new);
+        Optional<PhoneNumber> numberOptional = readOptional("phone number", PhoneNumber::new);
+
+        PersonContact contact = new PersonContact(name, surname);
+        birthDateOptional.ifPresent(contact::setBirthDate);
+        genderOptional.ifPresent(contact::setGender);
+        numberOptional.ifPresent(contact::setPhoneNumber);
+
+        return new PersonRecord(contact);
+    }
+
+    private OrganisationRecord readOrganisationRecord() {
+        OrganisationName organizationName = readRequire("organization name", OrganisationName::new);
+        Optional<Address> address = readOptional("address", Address::new);
+        Optional<PhoneNumber> number = readOptional("number", PhoneNumber::new);
+
+        OrganisationContact contact = new OrganisationContact(organizationName);
+        address.ifPresent(contact::setAddress);
+        number.ifPresent(contact::setPhoneNumber);
+
+        return new OrganisationRecord(contact);
+    }
+
+    private <T> T readRequire(String messageSuffix, Function<String, T> function) {
+        while (true) {
+            Optional<T> input = readOptional(messageSuffix, function);
+            if (input.isPresent()) {
+                return input.get();
+            }
+        }
+    }
+
+    private <T> Optional<T> readOptional(String messageSuffix, Function<String, T> function) {
+        try {
+            System.out.print("Enter the " + messageSuffix + ": ");
+            return Optional.of(
+                    function.apply(
+                            scanner.nextLine()));
+        } catch (IllegalArgumentException ignore) {
+            System.out.println("Bad " + messageSuffix + "!");
+            return Optional.empty();
+        }
+    }
+}
