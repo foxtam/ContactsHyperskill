@@ -4,7 +4,7 @@ public class OrganisationName {
     private final String organisationName;
 
     public OrganisationName(final String organisationName) {
-        if (!organisationName.matches("\\w+")) throw new IllegalArgumentException(organisationName);
+        if (!organisationName.matches(".*\\w.*")) throw new IllegalArgumentException(organisationName);
         this.organisationName = organisationName;
     }
 
