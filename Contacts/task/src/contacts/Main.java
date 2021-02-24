@@ -14,7 +14,6 @@ public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
     private final PhoneBook phoneBook = new PhoneBook();
-    private final String joinedCommands = String.join(", ", commands.keySet());
     private boolean continued = true;
     private final Map<String, Runnable> commands =
             Map.of(
@@ -24,6 +23,7 @@ public class Main {
                     "count", this::actionCount,
                     "info", this::actionInfo,
                     "exit", this::actionExit);
+    private final String joinedCommands = String.join(", ", commands.keySet());
 
     public static void main(String[] args) {
         new Main().run();
