@@ -114,7 +114,7 @@ public class Main {
     private void actionInfo() {
         printPhoneBook();
         int index = readRecordIndex("Enter index to show info: ");
-        System.out.println(phoneBook.get(index).fullInfo());
+        System.out.println(phoneBook.get(index).fullInfo() + "\n");
     }
 
     private Record readRecord() {
