@@ -4,7 +4,7 @@ import contacts.contact.Record;
 import contacts.contact.*;
 import contacts.contact.properties.*;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
@@ -96,11 +96,13 @@ public class Main {
 
     private String readFieldName(Record record) {
         String field;
+        Collection<String> elements;
         do {
-            String propertiesString = String.join(", ", record.propertiesAsStrings());
+            elements = record.propertiesAsStrings();
+            String propertiesString = String.join(", ", elements);
             System.out.printf("Select a field (%s): ", propertiesString);
             field = scanner.nextLine();
-        } while (!List.of("name", "surname", "number").contains(field));
+        } while (!elements.contains(field));
         return field;
     }
 
