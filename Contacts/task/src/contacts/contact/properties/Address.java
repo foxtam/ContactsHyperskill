@@ -4,7 +4,7 @@ public class Address {
     private final String address;
 
     public Address(final String address) {
-        if (!address.matches("[\\w ]+")) throw new IllegalArgumentException(address);
+        if (!address.matches(".*\\w.*")) throw new IllegalArgumentException(address);
         this.address = address;
     }
 
