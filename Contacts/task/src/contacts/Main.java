@@ -87,16 +87,18 @@ public class Main {
         }
         printPhoneBook();
         int recordIndex = readRecordIndex("Select a record: ");
-        String field = readFieldName();
+        Record record = phoneBook.get(recordIndex);
+        String field = readFieldName(record);
         String newValue = readFieldValue(field);
-        phoneBook.updateRecord(recordIndex, field, newValue);
+        record.updateProperty(field, newValue);
         System.out.println("The record updated!\n");
     }
 
-    private String readFieldName() {
+    private String readFieldName(Record record) {
         String field;
         do {
-            System.out.print("Select a field (name, surname, number): ");
+            String propertiesString = String.join(", ", record.propertiesAsStrings());
+            System.out.printf("Select a field (%s): ", propertiesString);
             field = scanner.nextLine();
         } while (!List.of("name", "surname", "number").contains(field));
         return field;
