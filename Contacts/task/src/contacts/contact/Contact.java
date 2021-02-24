@@ -1,58 +1,19 @@
 package contacts.contact;
 
-import contacts.PhoneNumber;
-import contacts.exceptions.WrongPhoneNumberFormatException;
+import contacts.contact.properties.PhoneNumber;
 
-public class Contact {
+import java.time.LocalDateTime;
 
-    private String name;
-    private String surname;
-    private PhoneNumber phoneNumber = null;
+public interface Contact {
+    LocalDateTime getCreationDate();
 
-    public Contact(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
+    LocalDateTime getEditDate();
 
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
-    }
+    PhoneNumber getPhoneNumber();
 
-    public String getName() {
-        return name;
-    }
+    void setPhoneNumber(PhoneNumber phoneNumber);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    boolean hasNumber();
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber.numberAsString();
-    }
-
-    public void setPhoneNumber(String phoneNumber) throws WrongPhoneNumberFormatException {
-        try {
-            this.phoneNumber = new PhoneNumber(phoneNumber);
-        } catch (WrongPhoneNumberFormatException e) {
-            this.phoneNumber = null;
-            throw e;
-        }
-    }
-
-    public boolean hasNumber() {
-        return phoneNumber != null;
-    }
+    String fullInfo();
 }
