@@ -123,12 +123,12 @@ public class Main {
 
     private Record readRecord() {
         while (true) {
-            System.out.print("Enter the type (person, organisation): ");
+            System.out.print("Enter the type (person, organization): ");
             String type = scanner.nextLine();
             switch (type) {
                 case "person":
                     return readPersonRecord();
-                case "organisation":
+                case "organization":
                     return readOrganisationRecord();
                 default:
                     System.out.println("Bad input!");
