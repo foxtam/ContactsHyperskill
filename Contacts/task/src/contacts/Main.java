@@ -86,10 +86,10 @@ public class Main {
             return;
         }
         printPhoneBook();
-        int contactIndex = readRecordIndex("Select a record: ");
+        int recordIndex = readRecordIndex("Select a record: ");
         String field = readFieldName();
         String newValue = readFieldValue(field);
-        phoneBook.updateRecord(contactIndex, field, newValue);
+        phoneBook.updateRecord(recordIndex, field, newValue);
         System.out.println("The record updated!\n");
     }
 
