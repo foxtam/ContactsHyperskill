@@ -87,13 +87,13 @@ public class Main {
         }
         printPhoneBook();
         int contactIndex = readRecordIndex("Select a record: ");
-        String field = selectField();
-        String newValue = enterField(field);
+        String field = readFieldName();
+        String newValue = readFieldValue(field);
         phoneBook.updateRecord(contactIndex, field, newValue);
         System.out.println("The record updated!\n");
     }
 
-    private String selectField() {
+    private String readFieldName() {
         String field;
         do {
             System.out.print("Select a field (name, surname, number): ");
@@ -102,7 +102,7 @@ public class Main {
         return field;
     }
 
-    private String enterField(String field) {
+    private String readFieldValue(String field) {
         System.out.print("Enter " + field + ": ");
         return scanner.nextLine();
     }
