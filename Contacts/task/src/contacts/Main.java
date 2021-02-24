@@ -62,19 +62,19 @@ public class Main {
             return;
         }
         printPhoneBook();
-        int contactIndex = readRecordIndex();
+        int contactIndex = readRecordIndex("Select a record: ");
         phoneBook.removeAt(contactIndex);
         System.out.println("The record removed!\n");
     }
 
     private void printPhoneBook() {
-        System.out.println(phoneBook);
+        System.out.print(phoneBook);
     }
 
-    private int readRecordIndex() {
+    private int readRecordIndex(String message) {
         int index;
         do {
-            System.out.print("Select a record: ");
+            System.out.print(message);
             index = Integer.parseInt(scanner.nextLine());
         } while (index <= 0 || index > phoneBook.size());
         return index - 1;
@@ -86,7 +86,7 @@ public class Main {
             return;
         }
         printPhoneBook();
-        int contactIndex = readRecordIndex();
+        int contactIndex = readRecordIndex("Select a record: ");
         String field = selectField();
         String newValue = enterField(field);
         phoneBook.updateRecord(contactIndex, field, newValue);
@@ -113,8 +113,7 @@ public class Main {
 
     private void actionInfo() {
         printPhoneBook();
-        System.out.println("Enter index to show info: ");
-        int index = readRecordIndex();
+        int index = readRecordIndex("Enter index to show info: ");
         System.out.println(phoneBook.get(index).fullInfo());
     }
 
