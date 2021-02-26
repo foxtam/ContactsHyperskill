@@ -23,6 +23,8 @@ public class FilePhoneBook implements PhoneBook {
     private void loadPhoneBook() {
         try {
             tryLoadPhoneBook();
+        } catch (EOFException e) {
+            phoneBook = new SimplePhoneBook();
         } catch (IOException | ClassNotFoundException e) {
             throw new LoadPhoneBookException(e);
         }
