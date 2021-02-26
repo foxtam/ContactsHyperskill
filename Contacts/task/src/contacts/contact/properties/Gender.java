@@ -1,10 +1,12 @@
 package contacts.contact.properties;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
-public class Gender {
+public class Gender implements Serializable {
     public static final List<String> genderList = List.of("M", "F");
+    private static final long serialVersionUID = 1L;
     private final String gender;
 
     public Gender(String gender) {

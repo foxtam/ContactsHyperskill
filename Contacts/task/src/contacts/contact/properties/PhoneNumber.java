@@ -1,8 +1,11 @@
 package contacts.contact.properties;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
-public class PhoneNumber {
+public class PhoneNumber implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private static final Pattern phoneNumberPattern =
             Pattern.compile("\\+?(\\w+[- ](\\(\\w{2,})\\)|\\w+|(\\(\\w+)\\))([- ]\\w{2,})*");
 

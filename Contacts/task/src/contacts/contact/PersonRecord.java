@@ -5,9 +5,12 @@ import contacts.contact.properties.Gender;
 import contacts.contact.properties.Name;
 import contacts.contact.properties.Surname;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class PersonRecord extends AbstractRecord {
+public class PersonRecord extends AbstractRecord implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public PersonRecord(PersonContact contact) {
         super(contact,
                 Map.of(

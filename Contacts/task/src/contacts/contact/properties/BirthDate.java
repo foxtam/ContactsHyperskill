@@ -1,9 +1,11 @@
 package contacts.contact.properties;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class BirthDate {
+public class BirthDate implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final LocalDate birthDate;
 
     public BirthDate(final String birthDate) {

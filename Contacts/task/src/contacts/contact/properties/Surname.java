@@ -1,6 +1,9 @@
 package contacts.contact.properties;
 
-public class Surname {
+import java.io.Serializable;
+
+public class Surname implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final String surname;
 
     public Surname(final String surname) {

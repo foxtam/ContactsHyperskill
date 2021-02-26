@@ -2,12 +2,15 @@ package contacts.contact;
 
 import contacts.contact.properties.PhoneNumber;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public abstract class AbstractRecord implements Record {
+public abstract class AbstractRecord implements Record, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final Map<String, Consumer<String>> propertiesFunctions = new HashMap<>();
     private final Contact contact;
 

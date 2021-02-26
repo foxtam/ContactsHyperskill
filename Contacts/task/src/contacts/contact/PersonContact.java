@@ -6,9 +6,11 @@ import contacts.contact.properties.Gender;
 import contacts.contact.properties.Name;
 import contacts.contact.properties.Surname;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public class PersonContact extends AbstractContact {
+public class PersonContact extends AbstractContact implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Name name;
     private Surname surname;
     private BirthDate birthDate;

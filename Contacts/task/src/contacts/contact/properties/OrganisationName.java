@@ -1,6 +1,9 @@
 package contacts.contact.properties;
 
-public class OrganisationName {
+import java.io.Serializable;
+
+public class OrganisationName implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final String organisationName;
 
     public OrganisationName(final String organisationName) {

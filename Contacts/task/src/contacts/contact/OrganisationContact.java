@@ -4,9 +4,11 @@ package contacts.contact;
 import contacts.contact.properties.Address;
 import contacts.contact.properties.OrganisationName;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public class OrganisationContact extends AbstractContact {
+public class OrganisationContact extends AbstractContact implements Serializable {
+    private static final long serialVersionUID = 1L;
     private OrganisationName organizationName;
     private Address address;
 

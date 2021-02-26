@@ -2,12 +2,13 @@ package contacts.phonebook;
 
 import contacts.contact.Record;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimplePhoneBook implements PhoneBook {
+public class SimplePhoneBook implements PhoneBook, Serializable {
+    private static final long serialVersionUID = 1L;
     private final List<Record> list = new ArrayList<>();
-
 
     @Override
     public void add(Record contact) {
