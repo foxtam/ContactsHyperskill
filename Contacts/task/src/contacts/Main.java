@@ -3,7 +3,10 @@ package contacts;
 import contacts.contact.Record;
 import contacts.contact.*;
 import contacts.contact.properties.*;
+import contacts.factory.PhoneBookFactory;
+import contacts.phonebook.PhoneBook;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +16,7 @@ import java.util.function.Function;
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private final PhoneBook phoneBook = new PhoneBook();
+    private final PhoneBook phoneBook;
     private boolean continued = true;
     private final Map<String, Runnable> commands =
             Map.of(
@@ -25,8 +28,17 @@ public class Main {
                     "exit", this::actionExit);
     private final String joinedCommands = String.join(", ", commands.keySet());
 
+    public Main(PhoneBookFactory factory) {
+        this.phoneBook = factory.createPhoneBook();
+    }
+
     public static void main(String[] args) {
-        new Main().run();
+        Optional<String> fileNameOptional = new Args(args).get("open");
+        PhoneBookFactory factory =
+                fileNameOptional
+                        .map(s -> new PhoneBookFactory(new File(s)))
+                        .orElseGet(PhoneBookFactory::new);
+        new Main(factory).run();
     }
 
     private void run() {
