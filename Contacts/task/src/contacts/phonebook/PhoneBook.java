@@ -33,10 +33,6 @@ public class PhoneBook {
         return builder.toString();
     }
 
-    public void updateRecord(int index, String field, String value) {
-        list.get(index).updateProperty(field, value);
-    }
-
     public Record get(int index) {
         return list.get(index);
     }
