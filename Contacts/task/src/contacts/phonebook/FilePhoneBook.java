@@ -90,4 +90,9 @@ public class FilePhoneBook implements PhoneBook {
     public boolean isEmpty() {
         return phoneBook.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        return phoneBook.toString();
+    }
 }
