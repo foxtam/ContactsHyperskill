@@ -1,4 +1,4 @@
-package contacts;
+package contacts.phonebook;
 
 import contacts.contact.Record;
 
