@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public abstract class AbstractRecord implements Record, Serializable {
+abstract class AbstractRecord implements Record, Serializable {
     private static final long serialVersionUID = 1L;
 
     private final Map<String, Consumer<String>> propertiesFunctions = new HashMap<>();

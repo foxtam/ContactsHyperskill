@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public abstract class AbstractContact implements Contact, Serializable {
+abstract class AbstractContact implements Contact, Serializable {
     protected static final String noDataStub = "[no data]";
     private static final long serialVersionUID = 1L;
     private final LocalDateTime creationDate = LocalDateTime.now();
