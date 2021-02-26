@@ -19,10 +19,10 @@ public class FilePhoneBookFactory implements PhoneBookFactory {
         if (!file.isFile()) {
             try {
                 if (!file.createNewFile()) {
-                    throw new CreateFileException();
+                    throw new CreateFileException("File not created!");
                 }
             } catch (IOException e) {
-                throw new CreateFileException();
+                throw new CreateFileException(e);
             }
         }
         return new FilePhoneBook(file);

@@ -19,7 +19,7 @@ public class FilePhoneBook implements PhoneBook {
         try {
             tryLoadPhoneBook();
         } catch (IOException | ClassNotFoundException e) {
-            throw new LoadPhoneBookException();
+            throw new LoadPhoneBookException(e);
         }
     }
 
@@ -43,7 +43,7 @@ public class FilePhoneBook implements PhoneBook {
         try {
             tryUploadPhoneBook();
         } catch (IOException e) {
-            throw new UploadPhoneBookException();
+            throw new UploadPhoneBookException(e);
         }
     }
 
