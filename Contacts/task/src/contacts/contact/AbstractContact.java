@@ -12,18 +12,22 @@ public abstract class AbstractContact implements Contact {
     private LocalDateTime editDate = creationDate;
     private PhoneNumber phoneNumber;
 
+    @Override
     public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
+    @Override
     public LocalDateTime getEditDate() {
         return editDate;
     }
 
+    @Override
     public PhoneNumber getPhoneNumber() {
         return Objects.requireNonNull(phoneNumber);
     }
 
+    @Override
     public void setPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
         updateEditDate();
