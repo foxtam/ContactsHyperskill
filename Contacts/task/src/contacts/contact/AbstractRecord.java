@@ -16,7 +16,9 @@ public abstract class AbstractRecord implements Record, Serializable {
 
     public AbstractRecord(Contact contact, Map<String, Consumer<String>> functions) {
         this.contact = contact;
-        propertiesFunctions.put("number", s -> contact.setPhoneNumber(new PhoneNumber(s)));
+        propertiesFunctions.put(
+                "number",
+                (Consumer<String> & Serializable) s -> contact.setPhoneNumber(new PhoneNumber(s)));
         propertiesFunctions.putAll(functions);
     }
 

@@ -7,6 +7,7 @@ import contacts.contact.properties.Surname;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class PersonRecord extends AbstractRecord implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -14,9 +15,9 @@ public class PersonRecord extends AbstractRecord implements Serializable {
     public PersonRecord(PersonContact contact) {
         super(contact,
                 Map.of(
-                        "name", s -> contact.setName(new Name(s)),
-                        "surname", s -> contact.setSurname(new Surname(s)),
-                        "birth", s -> contact.setBirthDate(new BirthDate(s)),
-                        "gender", s -> contact.setGender(new Gender(s))));
+                        "name", (Consumer<String> & Serializable) s -> contact.setName(new Name(s)),
+                        "surname", (Consumer<String> & Serializable) s -> contact.setSurname(new Surname(s)),
+                        "birth", (Consumer<String> & Serializable) s -> contact.setBirthDate(new BirthDate(s)),
+                        "gender", (Consumer<String> & Serializable) s -> contact.setGender(new Gender(s))));
     }
 }
