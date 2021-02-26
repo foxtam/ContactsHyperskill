@@ -41,7 +41,9 @@ public class FilePhoneBook implements PhoneBook {
     }
 
     public static PhoneBook createEmpty(File file) {
-        return new FilePhoneBook(file);
+        FilePhoneBook filePhoneBook = new FilePhoneBook(file);
+        filePhoneBook.phoneBook = new SimplePhoneBook();
+        return filePhoneBook;
     }
 
     @Override
