@@ -7,7 +7,7 @@ import contacts.exceptions.UploadPhoneBookException;
 import java.io.*;
 
 public class FilePhoneBook implements PhoneBook {
-    private transient final File file;
+    private final File file;
     private PhoneBook phoneBook;
 
     public FilePhoneBook(File file) {
