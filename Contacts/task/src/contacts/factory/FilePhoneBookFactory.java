@@ -21,10 +21,11 @@ public class FilePhoneBookFactory implements PhoneBookFactory {
                 if (!file.createNewFile()) {
                     throw new CreateFileException("File not created!");
                 }
+                return FilePhoneBook.createEmpty(file);
             } catch (IOException e) {
                 throw new CreateFileException(e);
             }
         }
-        return new FilePhoneBook(file);
+        return FilePhoneBook.createAndLoad(file);
     }
 }
