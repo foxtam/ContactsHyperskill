@@ -10,18 +10,14 @@ public class FilePhoneBook implements PhoneBook {
     private final File file;
     private PhoneBook phoneBook;
 
+    private FilePhoneBook(File file) {
+        this.file = file;
+    }
+
     public static PhoneBook createAndLoad(File file) {
         FilePhoneBook filePhoneBook = new FilePhoneBook(file);
         filePhoneBook.loadPhoneBook();
         return filePhoneBook;
-    }
-
-    public static PhoneBook createEmpty(File file) {
-        return new FilePhoneBook(file);
-    }
-
-    public FilePhoneBook(File file) {
-        this.file = file;
     }
 
     private void loadPhoneBook() {
@@ -40,6 +36,10 @@ public class FilePhoneBook implements PhoneBook {
         try (ois) {
             phoneBook = (PhoneBook) ois.readObject();
         }
+    }
+
+    public static PhoneBook createEmpty(File file) {
+        return new FilePhoneBook(file);
     }
 
     @Override
