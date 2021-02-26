@@ -3,7 +3,9 @@ package contacts;
 import contacts.contact.Record;
 import contacts.contact.*;
 import contacts.contact.properties.*;
+import contacts.factory.FilePhoneBookFactory;
 import contacts.factory.PhoneBookFactory;
+import contacts.factory.SimplePhoneBookFactory;
 import contacts.phonebook.PhoneBook;
 
 import java.io.File;
@@ -36,8 +38,8 @@ public class Main {
         Optional<String> fileNameOptional = new Args(args).get("open");
         PhoneBookFactory factory =
                 fileNameOptional
-                        .map(s -> new PhoneBookFactory(new File(s)))
-                        .orElseGet(PhoneBookFactory::new);
+                        .<PhoneBookFactory>map(s -> new FilePhoneBookFactory(new File(s)))
+                        .orElseGet(SimplePhoneBookFactory::new);
         new Main(factory).run();
     }
 
