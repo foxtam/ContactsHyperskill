@@ -7,13 +7,12 @@ import contacts.factory.FilePhoneBookFactory;
 import contacts.factory.PhoneBookFactory;
 import contacts.factory.SimplePhoneBookFactory;
 import contacts.phonebook.PhoneBook;
+import contacts.phonebook.searchphonebook.SearchPhoneBook;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -24,6 +23,7 @@ public class Main {
             Map.of(
                     "add", this::actionAdd,
                     "list", this::actionList,
+                    "search", this::actionSearch,
                     "count", this::actionCount,
                     "exit", this::actionExit);
     private final String joinedCommands = String.join(", ", commands.keySet());
@@ -81,7 +81,38 @@ public class Main {
         System.out.print(phoneBook);
     }
 
+    private void actionSearch() {
+        String query = read("Enter search query: ");
+        List<Record> records =
+                SearchPhoneBook.of(phoneBook)
+                        .searchByRegex(Pattern.compile(query));
+        System.out.printf("Found %d results:%n", records.size());
+        printRecordsList(records);
+        showSearchMenu(records);
     }
+
+    private void showSearchMenu(List<Record> records) {
+        while (true) {
+            String input = read("[search] Enter action ([number], back, again): ");
+            if(input.equals("again")) {
+                actionSearch();
+            } else if(input.equals("back")) {
+                return;
+            } else if(input.matches("\\d+")) {
+                int n = Integer.parseInt(input);
+                if (n > 0 && n <= records.size()) {
+                    System.out.println(records.get(n - 1).fullInfo());
+                }
+            }
+        }
+    }
+
+    private void printRecordsList(List<Record> records) {
+        for (int i = 0; i < records.size(); i++) {
+            System.out.printf("%d. %s", i + 1, records.toString());
+        }
+    }
+
     private void actionExit() {
         continued = false;
     }
