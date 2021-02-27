@@ -77,7 +77,10 @@ public class Main {
             } else if (input.matches("\\d+")) {
                 int n = Integer.parseInt(input);
                 if (n > 0 && n <= phoneBook.size()) {
-                    System.out.println(phoneBook.get(n - 1).fullInfo());
+                    Record record = phoneBook.get(n - 1);
+                    System.out.println(record.fullInfo() + "\n");
+                    showRecordMenu(record);
+                    return;
                 }
             }
         }
