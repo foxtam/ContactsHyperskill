@@ -88,6 +88,8 @@ public class Main {
 
     private void printPhoneBook() {
         System.out.print(phoneBook);
+        System.out.println();
+    }
     }
 
     private void actionSearch() {
