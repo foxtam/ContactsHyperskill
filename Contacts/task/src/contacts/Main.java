@@ -179,8 +179,9 @@ public class Main {
 
     private void printRecordsList(List<Record> records) {
         for (int i = 0; i < records.size(); i++) {
-            System.out.printf("%d. %s", i + 1, records.toString());
+            System.out.printf("%d. %s%n", i + 1, records.get(i).toString());
         }
+        System.out.println();
     }
 
     private void actionExit() {
