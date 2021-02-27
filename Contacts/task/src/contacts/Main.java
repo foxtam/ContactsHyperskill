@@ -107,6 +107,15 @@ public class Main {
             }
         }
     }
+
+    private void showEditMenu(Record record) {
+        String input = readFieldName(record);
+        String value = readFieldValue(input);
+        record.updateProperty(input, value);
+        System.out.println("Saved");
+        System.out.println(record.fullInfo());
+        System.out.println();
+    }
     }
 
     private void actionSearch() {
