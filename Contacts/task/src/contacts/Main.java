@@ -245,12 +245,12 @@ public class Main {
         Surname surname = readRequire("surname", Surname::new);
         Optional<BirthDate> birthDateOptional = readOptional("birth date", BirthDate::new);
         Optional<Gender> genderOptional = readOptional("gender (M, F)", Gender::new);
-        Optional<PhoneNumber> numberOptional = readOptional("phone number", PhoneNumber::new);
+        PhoneNumber number = readRequire("phone number", PhoneNumber::new);
 
         PersonContact contact = new PersonContact(name, surname);
         birthDateOptional.ifPresent(contact::setBirthDate);
         genderOptional.ifPresent(contact::setGender);
-        numberOptional.ifPresent(contact::setPhoneNumber);
+        contact.setPhoneNumber(number);
 
         return new PersonRecord(contact);
     }
