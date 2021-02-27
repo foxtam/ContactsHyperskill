@@ -19,14 +19,14 @@ class SimpleSearchPhoneBook implements SearchPhoneBook {
         List<Record> records = new ArrayList<>();
         for (int i = 0; i < phoneBook.size(); i++) {
             Record record = phoneBook.get(i);
-            if (matchPatternAnyProperty(pattern, record)) {
+            if (patternMatchesAnyProperty(pattern, record)) {
                 records.add(record);
             }
         }
         return records;
     }
 
-    private boolean matchPatternAnyProperty(Pattern pattern, Record record) {
-        
+    private boolean patternMatchesAnyProperty(Pattern pattern, Record record) {
+
     }
 }
