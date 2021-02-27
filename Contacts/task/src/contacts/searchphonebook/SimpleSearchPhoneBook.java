@@ -5,6 +5,7 @@ import contacts.phonebook.PhoneBook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 class SimpleSearchPhoneBook implements SearchPhoneBook {
@@ -28,7 +29,14 @@ class SimpleSearchPhoneBook implements SearchPhoneBook {
 
     private boolean patternMatchesAnyProperty(Pattern pattern, Record record) {
         for (String field : record.fieldNames()) {
-
+            boolean matches =
+                    pattern
+                            .matcher(record.retrieveProperty(field).toLowerCase(Locale.ROOT))
+                            .find();
+            if (matches) {
+                return true;
+            }
         }
+        return false;
     }
 }
