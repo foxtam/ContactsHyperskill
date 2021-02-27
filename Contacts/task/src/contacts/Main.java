@@ -152,14 +152,17 @@ public class Main {
     private void showSearchMenu(List<Record> records) {
         while (true) {
             String input = read("[search] Enter action ([number], back, again): ");
-            if(input.equals("again")) {
-                actionSearch();
-            } else if(input.equals("back")) {
+            if (input.equals("again")) {
+                records = searchQuery();
+            } else if (input.equals("back")) {
                 return;
-            } else if(input.matches("\\d+")) {
+            } else if (input.matches("\\d+")) {
                 int n = Integer.parseInt(input);
                 if (n > 0 && n <= records.size()) {
-                    System.out.println(records.get(n - 1).fullInfo());
+                    Record record = records.get(n - 1);
+                    System.out.println(record.fullInfo() + "\n");
+                    showRecordMenu(record);
+                    return;
                 }
             }
         }
