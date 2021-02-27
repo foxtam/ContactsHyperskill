@@ -1,16 +1,22 @@
 package contacts;
 
-import contacts.contact.Record;
-import contacts.contact.*;
+import contacts.contact.OrganisationContact;
+import contacts.contact.PersonContact;
 import contacts.contact.properties.*;
+import contacts.contact.records.OrganisationRecord;
+import contacts.contact.records.PersonRecord;
+import contacts.contact.records.Record;
 import contacts.factory.FilePhoneBookFactory;
 import contacts.factory.PhoneBookFactory;
 import contacts.factory.SimplePhoneBookFactory;
 import contacts.phonebook.PhoneBook;
-import contacts.phonebook.searchphonebook.SearchPhoneBook;
+import contacts.searchphonebook.SearchPhoneBook;
 
 import java.io.File;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Scanner;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
