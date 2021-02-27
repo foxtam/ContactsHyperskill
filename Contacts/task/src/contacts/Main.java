@@ -137,6 +137,10 @@ public class Main {
         } while (!elements.contains(field));
         return field;
     }
+
+    private String readFieldValue(String field) {
+        System.out.print("Enter " + field + ": ");
+        return scanner.nextLine();
     }
 
     private void actionSearch() {
