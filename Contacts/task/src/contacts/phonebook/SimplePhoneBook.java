@@ -1,6 +1,6 @@
 package contacts.phonebook;
 
-import contacts.contact.Record;
+import contacts.contact.records.Record;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package contacts.phonebook;
 
-import contacts.contact.Record;
+import contacts.contact.records.Record;
 
 public interface PhoneBook {
     void add(Record record);
