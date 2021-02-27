@@ -43,8 +43,7 @@ public class Main {
 
     private void run() {
         while (continued) {
-            System.out.print("Enter action (" + joinedCommands + "): ");
-            String action = scanner.nextLine();
+            String action = readCommand("[menu] Enter action (" + joinedCommands + "): ");
             performAction(action);
         }
     }
