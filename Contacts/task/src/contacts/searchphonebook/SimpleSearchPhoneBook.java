@@ -1,0 +1,32 @@
+package contacts.searchphonebook;
+
+import contacts.contact.records.Record;
+import contacts.phonebook.PhoneBook;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+class SimpleSearchPhoneBook implements SearchPhoneBook {
+    private final PhoneBook phoneBook;
+
+    public SimpleSearchPhoneBook(PhoneBook phoneBook) {
+        this.phoneBook = phoneBook;
+    }
+
+    @Override
+    public List<Record> searchByRegex(Pattern pattern) {
+        List<Record> records = new ArrayList<>();
+        for (int i = 0; i < phoneBook.size(); i++) {
+            Record record = phoneBook.get(i);
+            if (matchPatternAnyProperty(pattern, record)) {
+                records.add(record);
+            }
+        }
+        return records;
+    }
+
+    private boolean matchPatternAnyProperty(Pattern pattern, Record record) {
+        
+    }
+}
