@@ -125,6 +125,18 @@ public class Main {
             }
         }
     }
+
+    private String readFieldName(Record record) {
+        String field;
+        List<String> elements;
+        do {
+            elements = record.fieldNames();
+            String propertiesString = String.join(", ", elements);
+            System.out.printf("Select a field (%s): ", propertiesString);
+            field = scanner.nextLine();
+        } while (!elements.contains(field));
+        return field;
+    }
     }
 
     private void actionSearch() {
@@ -201,23 +213,6 @@ public class Main {
         String newValue = readFieldValue(field);
         record.updateProperty(field, newValue);
         System.out.println("The record updated!\n");
-    }
-
-    private String readFieldName(Record record) {
-        String field;
-        Collection<String> elements;
-        do {
-            elements = record.propertiesAsStrings();
-            String propertiesString = String.join(", ", elements);
-            System.out.printf("Select a field (%s): ", propertiesString);
-            field = scanner.nextLine();
-        } while (!elements.contains(field));
-        return field;
-    }
-
-    private String readFieldValue(String field) {
-        System.out.print("Enter " + field + ": ");
-        return scanner.nextLine();
     }
 
     private void actionCount() {
