@@ -155,7 +155,7 @@ public class Main {
                         .searchByRegex(Pattern.compile(query));
         System.out.printf("Found %d results:%n", records.size());
         printRecordsList(records);
-        showSearchMenu(records);
+        return records;
     }
 
     private void showSearchMenu(List<Record> records) {
