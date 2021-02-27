@@ -43,9 +43,14 @@ public class Main {
 
     private void run() {
         while (continued) {
-            String action = readCommand("[menu] Enter action (" + joinedCommands + "): ");
+            String action = read("[menu] Enter action (" + joinedCommands + "): ");
             performAction(action);
         }
+    }
+
+    private String read(String message) {
+        System.out.print(message);
+        return scanner.nextLine();
     }
 
     private void performAction(String action) {
@@ -60,11 +65,11 @@ public class Main {
     private void actionList() {
         printPhoneBook();
         while (true) {
-            String command = readCommand("[list] Enter action ([number], back): ");
-            if (command.equals("back")) {
+            String input = read("[list] Enter action ([number], back): ");
+            if (input.equals("back")) {
                 return;
-            } else if (command.matches("\\d+")) {
-                int n = Integer.parseInt(command);
+            } else if (input.matches("\\d+")) {
+                int n = Integer.parseInt(input);
                 if (n > 0 && n <= phoneBook.size()) {
                     System.out.println(phoneBook.get(n - 1).fullInfo());
                 }
@@ -76,9 +81,6 @@ public class Main {
         System.out.print(phoneBook);
     }
 
-    private String readCommand(String message) {
-        System.out.print(message);
-        return scanner.nextLine();
     }
     private void actionExit() {
         continued = false;
