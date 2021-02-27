@@ -1,4 +1,4 @@
-package contacts.contact;
+package contacts.contact.records;
 
 import java.util.Collection;
 
