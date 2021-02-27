@@ -41,8 +41,9 @@ abstract class AbstractRecord implements Record, Serializable {
     public void updateProperty(String field, String value) {
         if (number.equals(field)) {
             contact.setPhoneNumber(new PhoneNumber(value));
+        } else {
+            throw new IllegalArgumentException(field);
         }
-        throw new IllegalArgumentException(field);
     }
 
     @Override
