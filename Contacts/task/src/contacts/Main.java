@@ -90,6 +90,23 @@ public class Main {
         System.out.print(phoneBook);
         System.out.println();
     }
+
+    private void showRecordMenu(Record record) {
+        while (true) {
+            String input = read("[record] Enter action (edit, delete, menu): ");
+            switch (input) {
+                case "edit":
+                    showEditMenu(record);
+                    break;
+                case "delete":
+                    deleteRecord(record);
+                    return;
+                case "menu":
+                    System.out.println();
+                    return;
+            }
+        }
+    }
     }
 
     private void actionSearch() {
