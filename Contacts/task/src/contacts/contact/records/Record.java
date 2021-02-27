@@ -3,7 +3,7 @@ package contacts.contact.records;
 import java.util.List;
 
 public interface Record {
-    List<String> propertiesAsStrings();
+    List<String> fieldNames();
 
     String retrieveProperty(String field);
 

@@ -21,7 +21,7 @@ abstract class AbstractRecord implements Record, Serializable {
     }
 
     @Override
-    public List<String> propertiesAsStrings() {
+    public List<String> fieldNames() {
         List<String> properties = new ArrayList<>(properties());
         properties.add(number);
         return properties;

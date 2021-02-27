@@ -27,6 +27,8 @@ class SimpleSearchPhoneBook implements SearchPhoneBook {
     }
 
     private boolean patternMatchesAnyProperty(Pattern pattern, Record record) {
+        for (String field : record.fieldNames()) {
 
+        }
     }
 }
