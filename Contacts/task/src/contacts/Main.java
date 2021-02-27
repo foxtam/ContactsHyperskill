@@ -23,10 +23,8 @@ public class Main {
     private final Map<String, Runnable> commands =
             Map.of(
                     "add", this::actionAdd,
-                    "remove", this::actionRemove,
-                    "edit", this::actionEdit,
+                    "list", this::actionList,
                     "count", this::actionCount,
-                    "info", this::actionInfo,
                     "exit", this::actionExit);
     private final String joinedCommands = String.join(", ", commands.keySet());
 
@@ -60,6 +58,29 @@ public class Main {
         }
     }
 
+    private void actionList() {
+        printPhoneBook();
+        while (true) {
+            String command = readCommand("[list] Enter action ([number], back): ");
+            if (command.equals("back")) {
+                return;
+            } else if (command.matches("\\d+")) {
+                int n = Integer.parseInt(command);
+                if (n > 0 && n <= phoneBook.size()) {
+                    System.out.println(phoneBook.get(n - 1).fullInfo());
+                }
+            }
+        }
+    }
+
+    private void printPhoneBook() {
+        System.out.print(phoneBook);
+    }
+
+    private String readCommand(String message) {
+        System.out.print(message);
+        return scanner.nextLine();
+    }
     private void actionExit() {
         continued = false;
     }
@@ -79,10 +100,6 @@ public class Main {
         int contactIndex = readRecordIndex("Select a record: ");
         phoneBook.removeAt(contactIndex);
         System.out.println("The record removed!\n");
-    }
-
-    private void printPhoneBook() {
-        System.out.print(phoneBook);
     }
 
     private int readRecordIndex(String message) {
