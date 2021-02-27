@@ -116,6 +116,15 @@ public class Main {
         System.out.println(record.fullInfo());
         System.out.println();
     }
+
+    private void deleteRecord(Record record) {
+        for (int i = 0; i < phoneBook.size(); i++) {
+            if (phoneBook.get(i).equals(record)) {
+                phoneBook.removeAt(i);
+                return;
+            }
+        }
+    }
     }
 
     private void actionSearch() {
