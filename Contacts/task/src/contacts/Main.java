@@ -140,6 +140,11 @@ public class Main {
     }
 
     private void actionSearch() {
+        List<Record> records = searchQuery();
+        showSearchMenu(records);
+    }
+
+    private List<Record> searchQuery() {
         String query = read("Enter search query: ");
         List<Record> records =
                 SearchPhoneBook.of(phoneBook)
